@@ -66,3 +66,61 @@ class CpuSerializers(serializers.ModelSerializer):
                   'feature',  # 指令集
                   'notes',  # 贴士，备注
                   )
+
+    def get_brand(self, obj):
+        return obj.brand_f.name
+
+    def get_socket(self, obj):
+        return obj.socket_f.name
+
+    def get_foundry(self, obj):
+        return obj.foundry_f.name
+
+    def get_process_size(self, obj):
+        return obj.process_size_f.name
+
+    def get_package(self, obj):
+        return obj.package_f.name
+
+    def get_t_case_max(self, obj):
+        return obj.t_case_max_f.name
+
+    def get_multiplier(self, obj):
+        return obj.multiplier_f.name
+
+    def get_multiplier_unlocked(self, obj):
+        return obj.multiplier_unlocked_f.name
+
+    def get_tdp(self, obj):
+        return obj.tdp_f.name
+
+    def get_market(self, obj):
+        return obj.market_f.name
+
+    def get_production_status(self, obj):
+        return obj.process_status_f.name
+
+    def get_codename(self, obj):
+        return obj.codename_f.name
+
+    def get_generation(self, obj):
+        return obj.generation_f.name
+
+    def get_memory_support(self, obj):
+        return obj.memory_support_f.name
+
+    def get_cores(self, obj):
+        return obj.cores_f.name
+
+    def get_threads(self, obj):
+        return obj.threads.name
+
+    def get_integrated_graphics(self, obj):
+        return obj.integrated_graphics_f.name
+
+    def get_feature(self, obj):
+        return obj.feature_f.name
+
+    def create(self,  validated_data):
+        # 处理外键字段
+        return Cpus.objects.create(author=self.context["author"], **validated_data)
