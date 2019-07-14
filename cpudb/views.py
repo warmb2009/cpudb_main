@@ -77,4 +77,8 @@ class CpuTravel(APIView):
         else:
             print('验证失败')
             print(serializer.errors)
+            with open('error.log', 'a+') as f:
+                f.write(str(request.data)+'\n')
+                f.write(str(serializer.errors) + '\n')
+                f.close()
             return Response(serializer.errors)
