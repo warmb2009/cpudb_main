@@ -66,7 +66,10 @@ class CpuTravel(APIView):
 
     def post(self, request):
         print(request.data)
-        serializer = CpuSerializers(data=request.data)
+
+        serializer = CpuSerializers(
+            data=request.data,
+        )
         if serializer.is_valid():
             print('验证成功')
             serializer.save()

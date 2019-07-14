@@ -20,100 +20,111 @@ class Cpus(models.Model):
     # 名称 品牌
     name = models.CharField(max_length=32, unique=True)
 
-    brand_f = models.ForeignKey('Brand', on_delete=models.PROTECT, null=True)
-    #brand = models.CharField(max_length=32, null=True, default='')
+    brand = models.ForeignKey(
+        'Brand', on_delete=models.PROTECT, null=True, blank=True, default='')
+    # brand = models.CharField(max_length=32, null=True, default='', blank=True)
 
     # 物理核心 physical
-    socket_f = models.ForeignKey(
+    socket = models.ForeignKey(
         'Socket', related_name='socket_cpus', on_delete=models.PROTECT, null=True)  # 针数
-    #socket = models.CharField(max_length=32, null=True, default='')
+    # socket = models.CharField(max_length=32, null=True, default='')
 
-    foundry_f = models.ForeignKey(
+    foundry = models.ForeignKey(
         'Foundry', related_name='foundry_cpus', on_delete=models.PROTECT, null=True)  # 厂家
-    #foundry = models.CharField(max_length=32, null=True, default='')
+    # foundry = models.CharField(max_length=32, null=True, default='')
 
-    process_size_f = models.ForeignKey(
+    process_size = models.ForeignKey(
         'ProcessSize', related_name='process_size_cpus', on_delete=models.PROTECT, null=True)  # 封装面积
 
-    #process_size = models.CharField(max_length=32, null=True, default='')
+    # process_size = models.CharField(max_length=32, null=True, default='')
 
     transistors = models.CharField(
         max_length=128, null=True, default='')  # 晶体管数量
 
-    die_size = models.CharField(max_length=32, null=True, default='')  # 芯片尺寸
+    die_size = models.CharField(
+        max_length=32, null=True, default='')  # 芯片尺寸
 
-    package_f = models.ForeignKey(
-        'Pageage', on_delete=models.PROTECT, null=True)  # 封装模式
-    # package
-    t_case_max_f = models.ForeignKey(
-        'TCaseMax', on_delete=models.PROTECT, null=True)  # 稳定运行的最大温度
+    package = models.ForeignKey(
+        'Package', on_delete=models.PROTECT, null=True)  # 封装模式
+    # package = models.CharField(
+    #    max_length = 32, null = True, default = '', blank = True)
+    # t_case_max = models.ForeignKey(
+    # 'TCaseMax', on_delete=models.PROTECT, null=True)  # 稳定运行的最大温度
 
-    #t_case_max = models.CharField(max_length=32, null=True, default='')
+    t_case_max = models.CharField(max_length=32, null=True, default='')
 
     # 工作状况 performance
-    frequency = models.CharField(max_length=32, null=True, default='')  # 频率
-    turbo_clock = models.CharField(max_length=32, null=True, default='')  # 睿频
-    base_clock = models.CharField(max_length=32, null=True, default='')  # 基础频率
+    frequency = models.CharField(
+        max_length=32, null=True, default='', blank=True)  # 频率
+    turbo_clock = models.CharField(
+        max_length=32, null=True, default='')  # 睿频
+    base_clock = models.CharField(
+        max_length=32, null=True, default='')  # 基础频率
 
-    multiplier_f = models.ForeignKey(
+    multiplier = models.ForeignKey(
         'Multiplier', on_delete=models.PROTECT, null=True)  # 倍频
-    #multiplier = models.CharField(max_length=32, null=True, default='')
+    # multiplier = models.CharField(max_length=32, null=True, default='')
 
-    multiplier_unlocked_f = models.ForeignKey(
+    multiplier_unlocked = models.ForeignKey(
         'MultiplierUnlocked', on_delete=models.PROTECT, null=True)  # 解锁倍频
-    #multiplier_unlocked = models.CharField(max_length=32, null=True, default='')
+    # multiplier_unlocked = models.CharField(max_length=32, null=True, default='')
 
     voltage = models.CharField(max_length=32, null=True, default='')  # 电压
-    tdp_f = models.ForeignKey('TDP', on_delete=models.PROTECT, null=True)  # 功率
-    #tdp = models.CharField(max_length=32, null=True, default='')
+    tdp = models.ForeignKey(
+        'TDP', on_delete=models.PROTECT, null=True)  # 功率
+    # tdp = models.CharField(max_length=32, null=True, default='')
 
     # 结构 architecture
-    market_f = models.ForeignKey(
+    market = models.ForeignKey(
         'Market', on_delete=models.PROTECT, null=True)  # 面向市场
-    #market = models.CharField(max_length=32, null=True, default='')
+    # market = models.CharField(max_length=32, null=True, default='')
 
-    production_status_f = models.ForeignKey(
+    production_status = models.ForeignKey(
         'ProductionStatus', on_delete=models.PROTECT, null=True)  # 生产状态
-    #production_status = models.CharField(max_length=32, null=True, default='')
+    # production_status = models.CharField(max_length=32, null=True, default='')
 
-    released = models.CharField(max_length=32, null=True, default='')  # 发布时间
-    codename_f = models.ForeignKey(
+    released = models.CharField(
+        max_length=32, null=True, default='')  # 发布时间
+    codename = models.ForeignKey(
         'CodeName', on_delete=models.PROTECT, null=True)  # 代号
-    #codename = models.CharField(max_length=32, null=True, default='')
+    # codename=models.CharField(max_length=32, null=True, default='')
 
-    generation_f = models.ForeignKey(
+    generation = models.ForeignKey(
         'Generation', on_delete=models.PROTECT, null=True)  # 代
-    #generation = models.CharField(max_length=64, null=True, default='')
+    # generation=models.CharField(max_length=64, null=True, default='')
 
     part = models.CharField(max_length=64, null=True, default='')
-    memory_support_f = models.ManyToManyField('Memory')  # 支持的内存
-    #memory_support = models.CharField(max_length=32, null=True, default='')
+    memory_support = models.ForeignKey(
+        'Memory', on_delete=models.PROTECT, null=True)  # 支持的内存
+    # memory_support=models.CharField(max_length=32, null=True, default='')
 
     # 核心cores
-    cores_f = models.ForeignKey(
+    core = models.ForeignKey(
         'Core', on_delete=models.PROTECT, null=True)  # 核心数
-    #cores = models.CharField(max_length=32, null=True, default='')
+    # cores=models.CharField(max_length=32, null=True, default='')
 
-    threads_f = models.ForeignKey(
+    thread = models.ForeignKey(
         'Thread', on_delete=models.PROTECT, null=True)  # 线程数
-    #threads = models.CharField(max_length=32, null=True, default='')
+    # threads=models.CharField(max_length=32, null=True, default='')
 
     smp_cpus = models.CharField(max_length=32, null=True, default='')
-    integrated_graphics_f = models.ForeignKey(
+    integrated_graphics = models.ForeignKey(
         'IntegratedGraphics', on_delete=models.PROTECT, null=True)  # 核显
-    #integrated_graphics = models.CharField(max_length=32, null=True, default='')
+    # integrated_graphics=models.CharField(max_length=32, null=True, default='')
 
     # 缓存 cache
-    cache_l1 = models.CharField(max_length=32, null=True, default='')  # 一级缓存
-    cache_l2 = models.CharField(max_length=32, null=True, default='')  # 二级缓存
+    cache_l1 = models.CharField(
+        max_length=32, null=True, default='')  # 一级缓存
+    cache_l2 = models.CharField(
+        max_length=32, null=True, default='')  # 二级缓存
     # 三级缓存
     cache_l3 = models.CharField(max_length=32, null=True, default='')
     # 四级缓存
     cache_l4 = models.CharField(max_length=32, null=True, default='')
 
     # 指令集 features
-    feature_f = models.ManyToManyField('Feature')
-    #feature = models.TextField(default='', null=True)
+    feature = models.ManyToManyField('Feature')
+    # feature=models.TextField(default='', null=True)
 
     # 备注，贴士 notes
     notes = models.TextField(default='', null=True)
@@ -124,7 +135,7 @@ class Brand(models.Model):
     品牌
     '''
     name = models.CharField(max_length=32, unique=True)
-    pic = models.CharField(max_length=128)
+    pic = models.CharField(max_length=128, null=True, default='')
 
 
 class Socket(models.Model):
@@ -148,13 +159,6 @@ class ProcessSize(models.Model):
     name = models.CharField(max_length=32, unique=True)
 
 
-class cores(models.Model):
-    """
-    晶体管数量
-    """
-    name = models.CharField(max_length=32, unique=True)
-
-
 # class DieSize(models.Model):
 #    """
 #    芯片大小
@@ -162,18 +166,18 @@ class cores(models.Model):
 #    name = models.CharField(max_length=32)
 
 
-class Pageage(models.Model):
+class Package(models.Model):
     """
     封装模式
     """
     name = models.CharField(max_length=32, unique=True)
 
 
-class TCaseMax(models.Model):
-    """
-    稳定运行的最大温度
-    """
-    name = models.CharField(max_length=32, unique=True)
+# class TCaseMax(models.Model):
+#    """
+#    稳定运行的最大温度
+#    """
+#    name = models.CharField(max_length=32, unique=True)
 
 
 class Multiplier(models.Model):
@@ -218,16 +222,16 @@ class CodeName(models.Model):
     name = models.CharField(max_length=32, unique=True)
 
 
-class Memory(models.Model):
-    """
-    内存
-    """
-    name = models.CharField(max_length=32, unique=True)
-
-
 class Generation(models.Model):
     """
     代
+    """
+    name = models.CharField(max_length=64, unique=True)
+
+
+class Memory(models.Model):
+    """
+    内存
     """
     name = models.CharField(max_length=32, unique=True)
 
