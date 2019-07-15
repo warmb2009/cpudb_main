@@ -104,7 +104,7 @@ class CpuSerializers(serializers.ModelSerializer):
     process_size = serializers.SlugRelatedField(
         slug_field='name', queryset=ProcessSize.objects.all())
     package = serializers.SlugRelatedField(
-        slug_field='name', queryset=Package.objects.all(), required=False)
+        slug_field='name', queryset=Package.objects.all(), required=False, allow_null=True)
     multiplier = serializers.SlugRelatedField(
         slug_field='name', queryset=Multiplier.objects.all(), required=False)
     multiplier_unlocked = serializers.SlugRelatedField(
